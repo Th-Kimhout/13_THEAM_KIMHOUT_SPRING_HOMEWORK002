@@ -3,6 +3,8 @@ package org.hrd._13_theam_kimhout_spring_homework002.controller;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.hrd._13_theam_kimhout_spring_homework002.model.Instructor;
 import org.hrd._13_theam_kimhout_spring_homework002.model.request.InstructorRequest;
@@ -24,7 +26,7 @@ public class InstructorController {
 
     //Get all
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<Instructor>>> getAllInstructors(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "3") Integer size) {
+    public ResponseEntity<ApiResponse<List<Instructor>>> getAllInstructors(@RequestParam(defaultValue = "1") @Positive( message = "page must be a positive number") Integer page, @RequestParam(defaultValue = "3") @Positive(message = "size must be a positive number") Integer size) {
         List<Instructor> instructorList = instructorService.getAllInstructors(page, size);
         ApiResponse<List<Instructor>> response = ApiResponse.<List<Instructor>>builder()
                 .message("Retrieved all Instructor Successfully!")

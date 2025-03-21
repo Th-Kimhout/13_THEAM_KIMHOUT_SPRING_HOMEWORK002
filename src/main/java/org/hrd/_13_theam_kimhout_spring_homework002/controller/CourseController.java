@@ -1,11 +1,13 @@
 package org.hrd._13_theam_kimhout_spring_homework002.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.hrd._13_theam_kimhout_spring_homework002.model.Course;
 import org.hrd._13_theam_kimhout_spring_homework002.model.request.CourseRequest;
 import org.hrd._13_theam_kimhout_spring_homework002.model.response.ApiResponse;
-import org.hrd._13_theam_kimhout_spring_homework002.repository.CourseRepository;
+
 import org.hrd._13_theam_kimhout_spring_homework002.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class CourseController {
     //Get all
     @GetMapping("")
 
-    public ResponseEntity<ApiResponse<List<Course>>> getAllCourses(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "3") Integer size) {
+    public ResponseEntity<ApiResponse<List<Course>>> getAllCourses(@RequestParam(defaultValue = "1") @Positive(message = "page must be a positive number") Integer page, @RequestParam(defaultValue = "3") @Positive(message = "size must be a positive number") Integer size) {
 
         List<Course> courseList = courseService.getAllCourses(page, size);
         ApiResponse<List<Course>> response = ApiResponse.<List<Course>>builder()

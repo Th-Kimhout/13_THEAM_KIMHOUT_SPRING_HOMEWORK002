@@ -1,6 +1,7 @@
 package org.hrd._13_theam_kimhout_spring_homework002.controller;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.hrd._13_theam_kimhout_spring_homework002.model.Student;
 import org.hrd._13_theam_kimhout_spring_homework002.model.request.StudentRequest;
@@ -20,7 +21,7 @@ public class StudentController {
 
     //Get all
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<Student>>> getAllStudents(@RequestParam(defaultValue = "1") @Min(value = 1, message = "Page must be greater than 1!") Integer page, @RequestParam(defaultValue = "3") Integer size) {
+    public ResponseEntity<ApiResponse<List<Student>>> getAllStudents(@RequestParam(defaultValue = "1") @Positive(message = "page must be greater than 1!") Integer page, @RequestParam(defaultValue = "3") @Positive(message = "size must be a positive number") Integer size) {
         List<Student> studentList = studentService.getAllStudents(page, size);
 
         ApiResponse<List<Student>> response = ApiResponse.<List<Student>>builder()
