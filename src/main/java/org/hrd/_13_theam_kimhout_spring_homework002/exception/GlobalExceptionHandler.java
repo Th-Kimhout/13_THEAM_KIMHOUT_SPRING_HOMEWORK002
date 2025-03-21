@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ProblemDetail handleNotFoundException(BadRequestException e) {
+    public ProblemDetail handleBadRequestException(BadRequestException e) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setProperty("errors", e.getMessage());
